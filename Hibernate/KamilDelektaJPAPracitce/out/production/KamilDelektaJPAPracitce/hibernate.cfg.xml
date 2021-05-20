@@ -9,12 +9,16 @@
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
     <!-- DB schema will be updated if needed -->
-    <property name="hibernate.hbm2ddl.auto">create</property>
+    <property name="hibernate.hbm2ddl.auto">create-drop</property>
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
     <mapping class="agh.cs.lab1.Product"></mapping>
     <mapping class="agh.cs.lab1.Supplier"></mapping>
+    <mapping class="agh.cs.lab1.Category"></mapping>
+    <mapping class="agh.cs.lab1.Invoice"></mapping>
+    <mapping class="agh.cs.lab1.Customer"></mapping>
     <!-- DB schema will be updated if needed -->
 
   </session-factory>
 </hibernate-configuration>
+

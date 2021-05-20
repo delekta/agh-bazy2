@@ -1,19 +1,20 @@
 package agh.cs.lab1;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Supplier {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int SupplierId;
-    private String CompanyName;
-    private String Street;
-    private String City;
+//@SecondaryTable(name = "ADDRESS")
+public class Supplier extends Company implements Serializable {
+    private String BankAccountNumber;
 
-    @OneToMany
+    public String getBankAccountNumber() {
+        return BankAccountNumber;
+    }
+
+    @OneToMany(cascade = CascadeType.PERSIST)
     private Set<Product> SuppliedProducts = new HashSet<Product>();
 
     public Set<Product> getSuppliedProducts() {
@@ -24,36 +25,11 @@ public class Supplier {
         this.SuppliedProducts.add(product);
     }
 
-    public void setCompanyName(String companyName) {
-        CompanyName = companyName;
-    }
-
-    public void setStreet(String street) {
-        Street = street;
-    }
-
-    public void setCity(String city) {
-        City = city;
-    }
-
-    public String getCompanyName() {
-        return CompanyName;
-    }
-
-    public String getStreet() {
-        return Street;
-    }
-
-    public String getCity() {
-        return City;
-    }
-
     public Supplier(){};
 
-    public Supplier(String companyName, String street, String city){
-        this.CompanyName = companyName;
-        this.Street = street;
-        this.City = city;
+    public Supplier(String companyName, String street, String city, String zipCode, String bankAccountNumber){
+        super(companyName, city, street, zipCode);
+        this.BankAccountNumber = bankAccountNumber;
     }
 }
 

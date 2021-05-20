@@ -1,21 +1,44 @@
 package agh.cs.lab1;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-public class Product {
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ProductId;
     private String ProductName;
     private int UnitsOnStock;
 
-//    public void setSupplier(agh.cs.lab1.Supplier supplier) {
-//        Supplier = supplier;
-//    }
+    public Category getCategory() {
+        return Category;
+    }
 
-//    @ManyToOne
-//    private Supplier Supplier;
+    @ManyToOne
+    private Supplier Supplier;
+
+    @ManyToOne
+    private Category Category;
+
+//    @ManyToMany(mappedBy = "Products") nie dziala
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Invoice> Invoices = new LinkedHashSet<Invoice>();
+    public void addInvoice(Invoice invoice){
+        this.Invoices.add(invoice);
+    }
+
+    public void setCategory(Category category){
+        this.Category = category;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        Supplier = supplier;
+    }
+
 
     public String getProductName() {
         return ProductName;
